@@ -1,0 +1,1529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>SoloDev · Home</title>
+  <style>
+    /* RESET & BASE */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      overflow: hidden;
+      height: 100%;
+    }
+
+    body {
+      overflow-y: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    body::-webkit-scrollbar {
+      display: none;
+    }
+
+    :root {
+      --bg-color: #0a0c14;
+      --text-primary: #ffffff;
+      --text-secondary: #e0e8ff;
+      --text-accent: #8bb5ff;
+      --tagline-color: #b3d0ff;
+      --footer-color: #5f8fd9;
+      --border-color: rgba(59, 130, 246, 0.25);
+      --card-bg: rgba(10, 20, 40, 0.3);
+      --shadow-color: rgba(0, 0, 0, 0.7);
+      --backward-stroke: rgba(30, 144, 255, 0.4);
+      --backward-gradient: linear-gradient(130deg, #3b82f6 10%, #1e4b8f 60%, #0a2a4a 90%);
+      --tagline-gradient: linear-gradient(135deg, #e0ecff, #aac8ff);
+      --button-gradient: linear-gradient(135deg, #1e3a8a, #3b82f6);
+      --button-hover: linear-gradient(135deg, #2563eb, #60a5fa);
+      --form-bg: rgba(15, 23, 42, 0.2);
+      --input-bg: rgba(30, 41, 59, 0.2);
+      --glass-border: rgba(255, 255, 255, 0.08);
+      --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.36);
+      --chat-bg: rgba(15, 23, 42, 0.3);
+      --user-msg: rgba(59, 130, 246, 0.2);
+      --bot-msg: rgba(30, 41, 59, 0.4);
+      --topbar-bg: rgba(10, 20, 40, 0.2);
+    }
+
+    body.light-mode {
+      --bg-color: #f5f9ff;
+      --text-primary: #1a2639;
+      --text-secondary: #2c3e50;
+      --text-accent: #2563eb;
+      --tagline-color: #1e3a8a;
+      --footer-color: #3b82f6;
+      --border-color: rgba(37, 99, 235, 0.2);
+      --card-bg: rgba(255, 255, 255, 0.8);
+      --shadow-color: rgba(0, 0, 0, 0.1);
+      --backward-stroke: rgba(37, 99, 235, 0.3);
+      --backward-gradient: linear-gradient(130deg, #2563eb 10%, #1e3a8a 60%, #0f172a 90%);
+      --tagline-gradient: linear-gradient(135deg, #2563eb, #3b82f6);
+      --button-gradient: linear-gradient(135deg, #2563eb, #3b82f6);
+      --button-hover: linear-gradient(135deg, #1e3a8a, #2563eb);
+      --form-bg: rgba(255, 255, 255, 0.1);
+      --input-bg: rgba(255, 255, 255, 0.2);
+      --glass-border: rgba(255, 255, 255, 0.2);
+      --chat-bg: rgba(255, 255, 255, 0.2);
+      --user-msg: rgba(59, 130, 246, 0.15);
+      --bot-msg: rgba(203, 213, 225, 0.3);
+      --topbar-bg: rgba(255, 255, 255, 0.1);
+    }
+
+    @font-face {
+      font-family: 'AvantGarde Bk BT';
+      src: local('AvantGarde Bk BT'), local('AvantGarde-Bk-BT'), local('ITC Avant Garde Gothic Book'), 
+           url('https://fonts.cdnfonts.com/s/11707/AVGARDD_2.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      font-family: 'AvantGarde Bk BT', 'ITC Avant Garde Gothic', 'Inter', 'Syne', 'Poppins', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      transition: background-color 0.3s ease;
+      position: relative;
+    }
+
+    /* Top Shine Effect */
+    .top-shine {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 150px;
+      background: radial-gradient(ellipse at 50% -50%, rgba(59, 130, 246, 0.4) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 998;
+      animation: shinePulse 8s infinite alternate ease-in-out;
+    }
+
+    @keyframes shinePulse {
+      0% { opacity: 0.3; transform: scaleY(0.8); }
+      100% { opacity: 0.7; transform: scaleY(1.2); }
+    }
+
+    /* Top Bar */
+    .top-bar {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: auto;
+      min-width: 550px;
+      max-width: 90%;
+      background: var(--topbar-bg);
+      backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      border-radius: 60px;
+      padding: 12px 24px;
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--glass-shadow), 0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+      z-index: 1001;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+    }
+
+    .nav-item {
+      color: var(--text-secondary) !important;
+      font-size: 1rem;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      padding: 6px 0;
+      white-space: nowrap;
+      opacity: 1 !important;
+      text-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
+      text-decoration: none;
+    }
+
+    .nav-item:hover {
+      color: var(--text-accent) !important;
+      transform: translateY(-1px);
+    }
+
+    .nav-item::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%) scaleX(0);
+      width: 80%;
+      height: 2px;
+      background: var(--text-accent);
+      border-radius: 4px;
+      transition: transform 0.3s ease;
+    }
+
+    .nav-item:hover::after {
+      transform: translateX(-50%) scaleX(1);
+    }
+
+    .nav-item.active {
+      color: var(--text-accent) !important;
+    }
+
+    .nav-item.active::after {
+      transform: translateX(-50%) scaleX(1);
+    }
+
+    /* Mobile Menu */
+    .mobile-menu-btn {
+      display: none;
+      flex-direction: column;
+      gap: 6px;
+      cursor: pointer;
+      padding: 10px;
+      z-index: 1002;
+      position: fixed;
+      top: 28px;
+      right: 80px;
+    }
+
+    .mobile-menu-btn span {
+      width: 25px;
+      height: 2px;
+      background: var(--text-secondary);
+      border-radius: 4px;
+      transition: all 0.3s ease;
+    }
+
+    .mobile-menu-btn.active span:nth-child(1) {
+      transform: rotate(45deg) translate(7px, 7px);
+    }
+
+    .mobile-menu-btn.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .mobile-menu-btn.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -7px);
+    }
+
+    .mobile-nav {
+      position: fixed;
+      top: 80px;
+      right: 20px;
+      background: var(--topbar-bg);
+      backdrop-filter: blur(20px) saturate(200%);
+      -webkit-backdrop-filter: blur(20px) saturate(200%);
+      border-radius: 24px;
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--glass-shadow);
+      padding: 20px;
+      display: none;
+      flex-direction: column;
+      gap: 16px;
+      min-width: 180px;
+      z-index: 1000;
+      transform: translateX(120%);
+      transition: transform 0.3s ease;
+    }
+
+    .mobile-nav.show {
+      transform: translateX(0);
+    }
+
+    .mobile-nav-item {
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+      font-weight: 500;
+      padding: 10px 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border-radius: 30px;
+      text-align: center;
+      text-decoration: none;
+      display: block;
+    }
+
+    .mobile-nav-item:hover {
+      background: var(--border-color);
+      color: var(--text-accent);
+    }
+
+    .mobile-nav-item.active {
+      color: var(--text-accent);
+      background: var(--border-color);
+    }
+
+    /* Theme Switcher */
+    .theme-switcher {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1002;
+      background: var(--topbar-bg);
+      backdrop-filter: blur(16px) saturate(180%);
+      border-radius: 50px;
+      padding: 8px;
+      box-shadow: var(--glass-shadow);
+      border: 1px solid var(--glass-border);
+      display: flex;
+      gap: 8px;
+    }
+
+    .theme-btn {
+      background: transparent;
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      color: var(--text-secondary);
+    }
+
+    .theme-btn:hover {
+      background: var(--border-color);
+      transform: scale(1.1);
+    }
+
+    .theme-btn.active {
+      background: var(--text-accent);
+      color: white;
+    }
+
+    .theme-btn svg {
+      width: 24px;
+      height: 24px;
+      fill: currentColor;
+    }
+
+    /* AI Assistant Button */
+    .ai-assistant-btn {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background: var(--button-gradient);
+      border: 2px solid var(--glass-border);
+      box-shadow: 0 10px 30px var(--text-accent);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      transition: all 0.3s ease;
+      animation: pulse 2s infinite;
+    }
+
+    .ai-assistant-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 15px 40px var(--text-accent);
+    }
+
+    .ai-assistant-btn svg {
+      width: 40px;
+      height: 40px;
+      fill: white;
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7); }
+      70% { box-shadow: 0 0 0 15px rgba(59, 130, 246, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
+    }
+
+    /* AI Chat Popup */
+    .ai-chat-popup {
+      position: fixed;
+      bottom: 120px;
+      right: 30px;
+      width: 380px;
+      height: 550px;
+      background: var(--chat-bg);
+      backdrop-filter: blur(20px) saturate(200%);
+      -webkit-backdrop-filter: blur(20px) saturate(200%);
+      border-radius: 32px;
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--glass-shadow), 0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+      z-index: 999;
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .ai-chat-popup.show {
+      display: flex;
+    }
+
+    .chat-header {
+      padding: 20px;
+      background: var(--input-bg);
+      border-bottom: 1px solid var(--glass-border);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .chat-avatar {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background: var(--button-gradient);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .chat-avatar svg {
+      width: 28px;
+      height: 28px;
+      fill: white;
+    }
+
+    .chat-title h3 {
+      color: var(--text-primary);
+      font-size: 1.1rem;
+      margin-bottom: 4px;
+    }
+
+    .chat-title p {
+      color: var(--text-accent);
+      font-size: 0.8rem;
+    }
+
+    .close-chat {
+      margin-left: auto;
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      background: var(--input-bg);
+      border: 1px solid var(--glass-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--text-secondary);
+      font-size: 20px;
+      transition: all 0.3s;
+    }
+
+    .close-chat:hover {
+      background: var(--border-color);
+      color: var(--text-accent);
+    }
+
+    .chat-messages {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      scrollbar-width: none;
+    }
+
+    .chat-messages::-webkit-scrollbar {
+      display: none;
+    }
+
+    .message {
+      max-width: 85%;
+      padding: 12px 16px;
+      border-radius: 20px;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      word-wrap: break-word;
+      white-space: pre-wrap;
+    }
+
+    .bot-message {
+      align-self: flex-start;
+      background: var(--bot-msg);
+      border: 1px solid var(--glass-border);
+      color: var(--text-primary);
+      border-bottom-left-radius: 4px;
+    }
+
+    .user-message {
+      align-self: flex-end;
+      background: var(--user-msg);
+      border: 1px solid var(--glass-border);
+      color: var(--text-primary);
+      border-bottom-right-radius: 4px;
+    }
+
+    .typing-indicator {
+      display: flex;
+      gap: 4px;
+      padding: 12px 16px;
+      background: var(--bot-msg);
+      border-radius: 20px;
+      border-bottom-left-radius: 4px;
+      width: fit-content;
+    }
+
+    .typing-indicator span {
+      width: 8px;
+      height: 8px;
+      background: var(--text-accent);
+      border-radius: 50%;
+      animation: typing 1s infinite ease-in-out;
+    }
+
+    .typing-indicator span:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .typing-indicator span:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+
+    @keyframes typing {
+      0%, 100% { transform: translateY(0); opacity: 0.5; }
+      50% { transform: translateY(-10px); opacity: 1; }
+    }
+
+    .chat-input-area {
+      padding: 20px;
+      background: var(--input-bg);
+      border-top: 1px solid var(--glass-border);
+      display: flex;
+      gap: 10px;
+    }
+
+    .chat-input-area input {
+      flex: 1;
+      padding: 12px 16px;
+      background: var(--form-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 40px;
+      color: var(--text-primary);
+      font-family: 'AvantGarde Bk BT', sans-serif;
+      font-size: 0.95rem;
+    }
+
+    .chat-input-area input:focus {
+      outline: none;
+      border-color: var(--text-accent);
+    }
+
+    .chat-input-area button {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background: var(--button-gradient);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+    }
+
+    .chat-input-area button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 5px 15px var(--text-accent);
+    }
+
+    .chat-input-area button svg {
+      width: 22px;
+      height: 22px;
+      fill: white;
+    }
+
+    /* ===== HOME PAGE CONTENT ===== */
+    .home-container {
+      width: 100%;
+      max-width: 1400px;
+      margin: 80px auto 0 auto; /* REDUCED from 120px to 80px */
+      padding: 0 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Hero Section */
+    .hero {
+      position: relative;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px; /* Reduced margin */
+    }
+
+    .hero-center {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: fit-content;
+      margin: 0 auto;
+      padding: 10px 0 0 0; /* Reduced padding */
+      z-index: 2;
+    }
+
+    .photo {
+      width: min(450px, 70vw); /* Slightly smaller */
+      height: auto;
+      aspect-ratio: 4/5;
+      background-image: url('https://lms.rasnayakaayurveda.com/wp-content/uploads/2026/02/6-Photoroom.png');
+      background-size: cover;
+      background-position: center 25%;
+      background-repeat: no-repeat;
+      filter: drop-shadow(0 30px 30px var(--shadow-color));
+      animation: slideUp 1.2s ease-out forwards;
+      opacity: 0;
+      position: relative;
+      z-index: 10;
+    }
+
+    @keyframes slideUp {
+      0% { opacity: 0; transform: translateY(50px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .backward-name {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(1.1);
+      font-size: clamp(3rem, 12vw, 9rem);
+      font-weight: 800;
+      text-transform: uppercase;
+      color: transparent;
+      white-space: nowrap;
+      pointer-events: none;
+      z-index: 1;
+      -webkit-text-stroke: 2px var(--backward-stroke);
+      font-family: 'Syne', 'Inter', sans-serif;
+      letter-spacing: clamp(4px, 2vw, 20px);
+      filter: drop-shadow(0 0 35px var(--text-accent));
+      opacity: 0.55;
+      animation: fadeIn 1.8s ease-out forwards;
+    }
+
+    .backward-name span {
+      display: inline-block;
+      background: var(--backward-gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 0.55; }
+    }
+
+    .photo-tagline {
+      margin-top: 5px;
+      margin-bottom: 5px;
+      text-align: center;
+      width: 100%;
+      padding: 0 15px;
+      position: relative;
+      z-index: 15;
+    }
+
+    .photo-tagline p {
+      color: var(--tagline-color);
+      font-size: clamp(0.9rem, 4vw, 1.2rem);
+      letter-spacing: clamp(1px, 1.2vw, 3px);
+      text-transform: uppercase;
+      font-weight: 500;
+      background: var(--tagline-gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+      padding: 0 5px 2px 5px;
+      border-bottom: 1px solid var(--border-color);
+      animation: letterReveal 1.5s ease-out forwards;
+      opacity: 0;
+      animation-delay: 0.3s;
+    }
+
+    @keyframes letterReveal {
+      0% { opacity: 0; letter-spacing: 20px; filter: blur(10px); }
+      100% { opacity: 1; letter-spacing: clamp(1px, 1.2vw, 3px); filter: blur(0); }
+    }
+
+    .hero-footer {
+      margin-top: 5px;
+      margin-bottom: 10px;
+      text-align: center;
+      width: 100%;
+      padding: 0 10px;
+      animation: fadeUp 1.2s ease-out forwards;
+      animation-delay: 0.5s;
+      opacity: 0;
+      position: relative;
+      z-index: 15;
+    }
+
+    .hero-footer p {
+      color: var(--footer-color);
+      font-size: clamp(0.8rem, 3.5vw, 1rem);
+      letter-spacing: clamp(3px, 2vw, 6px);
+      text-transform: uppercase;
+      font-weight: 300;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 0.3rem;
+      display: inline-block;
+    }
+
+    @keyframes fadeUp {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Description Section */
+    .company-description-centered {
+      width: 100%;
+      max-width: 1000px;
+      margin: 30px auto 25px auto; /* Reduced from 3rem/2.5rem */
+      padding: 0 1.5rem;
+      text-align: center;
+      animation: containerReveal 1.5s ease-out forwards;
+      animation-delay: 0.7s;
+      opacity: 0;
+      position: relative;
+      z-index: 15;
+    }
+
+    @keyframes containerReveal {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .description-centered {
+      font-family: 'AvantGarde Bk BT', 'ITC Avant Garde Gothic', sans-serif;
+      font-size: clamp(1rem, 3.5vw, 1.3rem);
+      line-height: 1.6;
+      color: var(--text-primary);
+      text-align: center;
+      margin-bottom: 1.5rem;
+      text-shadow: 0 0 15px var(--text-accent);
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+      animation: textGlowReveal 2s ease-out forwards;
+      animation-delay: 0.9s;
+      opacity: 0;
+    }
+
+    @keyframes textGlowReveal {
+      0% { opacity: 0; filter: blur(5px); }
+      100% { opacity: 1; filter: blur(0); }
+    }
+
+    .collaborate-button {
+      display: inline-block;
+      background: var(--button-gradient);
+      color: white;
+      font-family: 'AvantGarde Bk BT', 'ITC Avant Garde Gothic', sans-serif;
+      font-size: clamp(1rem, 3.5vw, 1.2rem);
+      font-weight: 600;
+      padding: clamp(0.7rem, 2.5vw, 0.9rem) clamp(1.5rem, 4vw, 2.5rem);
+      border-radius: 50px;
+      text-decoration: none;
+      letter-spacing: 1px;
+      box-shadow: 0 10px 25px -5px var(--text-accent);
+      border: 1px solid var(--glass-border);
+      cursor: pointer;
+      margin: 0.5rem auto 0;
+      text-transform: uppercase;
+      transition: all 0.3s ease;
+      animation: buttonPop 1s ease-out forwards;
+      animation-delay: 1.2s;
+      opacity: 0;
+      transform: scale(0.8);
+      border: none;
+    }
+
+    @keyframes buttonPop {
+      0% { opacity: 0; transform: scale(0.8); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    .collaborate-button:hover {
+      background: var(--button-hover);
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 20px 30px -5px var(--text-accent);
+    }
+
+    /* Form Popup */
+    .form-popup {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(16px) saturate(180%);
+      z-index: 2000;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .form-popup.show {
+      display: flex;
+      opacity: 1;
+    }
+
+    .form-container {
+      background: var(--form-bg);
+      backdrop-filter: blur(20px) saturate(200%);
+      border-radius: 32px;
+      padding: 2rem;
+      max-width: 650px;
+      width: 100%;
+      max-height: 85vh;
+      overflow-y: auto;
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--glass-shadow), 0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+      position: relative;
+      color: var(--text-primary);
+      font-family: 'AvantGarde Bk BT', 'ITC Avant Garde Gothic', sans-serif;
+      scrollbar-width: none;
+    }
+
+    .form-container::-webkit-scrollbar {
+      display: none;
+    }
+
+    .close-form {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font-size: 28px;
+      cursor: pointer;
+      color: var(--text-secondary);
+      transition: color 0.3s;
+      z-index: 10;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: var(--input-bg);
+      backdrop-filter: blur(4px);
+      border: 1px solid var(--glass-border);
+    }
+
+    .close-form:hover {
+      color: var(--text-accent);
+      background: var(--border-color);
+    }
+
+    .form-container h2 {
+      font-size: 2rem;
+      margin-bottom: 1.8rem;
+      color: var(--text-accent);
+      text-align: center;
+      font-weight: 500;
+    }
+
+    .form-group {
+      margin-bottom: 1.3rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.4rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      font-size: 0.95rem;
+    }
+
+    .form-group label .required {
+      color: #ef4444;
+      margin-left: 4px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.9rem 1.2rem;
+      background: var(--input-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      font-size: 1rem;
+      color: var(--text-primary);
+      transition: all 0.3s;
+      font-family: 'AvantGarde Bk BT', 'ITC Avant Garde Gothic', sans-serif;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--text-accent);
+      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+    }
+
+    .form-group .note {
+      font-size: 0.8rem;
+      color: var(--text-accent);
+      margin-top: 6px;
+    }
+
+    .radio-group,
+    .checkbox-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+      background: var(--input-bg);
+      padding: 1.2rem;
+      border-radius: 24px;
+      border: 1px solid var(--glass-border);
+    }
+
+    .radio-group label,
+    .checkbox-group label {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 400;
+      cursor: pointer;
+      margin-bottom: 0;
+    }
+
+    .radio-group input[type="radio"],
+    .checkbox-group input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      accent-color: var(--text-accent);
+    }
+
+    .captcha-box {
+      background: var(--input-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 24px;
+      padding: 1.2rem;
+      margin: 1.5rem 0;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .captcha-box input {
+      flex: 1;
+      min-width: 150px;
+    }
+
+    .captcha-question {
+      font-weight: 600;
+      color: var(--text-accent);
+      background: var(--form-bg);
+      padding: 0.6rem 1.2rem;
+      border-radius: 40px;
+      border: 1px solid var(--glass-border);
+      font-size: 1.1rem;
+    }
+
+    .form-actions {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .submit-btn,
+    .reset-btn {
+      flex: 1;
+      padding: 1rem;
+      border: none;
+      border-radius: 40px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-size: 1rem;
+      font-family: 'AvantGarde Bk BT', 'ITC Avant Garde Gothic', sans-serif;
+    }
+
+    .submit-btn {
+      background: var(--button-gradient);
+      color: white;
+      border: 1px solid var(--glass-border);
+    }
+
+    .submit-btn:hover {
+      background: var(--button-hover);
+      transform: translateY(-2px);
+    }
+
+    .reset-btn {
+      background: var(--input-bg);
+      color: var(--text-primary);
+      border: 1px solid var(--glass-border);
+    }
+
+    .reset-btn:hover {
+      background: var(--border-color);
+      transform: translateY(-2px);
+    }
+
+    .success-message {
+      text-align: center;
+      padding: 2.5rem;
+    }
+
+    .success-message h3 {
+      color: #10b981;
+      font-size: 2.2rem;
+      margin-bottom: 1.2rem;
+      font-weight: 500;
+    }
+
+    .success-message p {
+      margin-bottom: 2rem;
+      color: var(--text-primary);
+      font-size: 1.1rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .top-bar {
+        min-width: auto;
+        width: auto;
+        padding: 10px 20px;
+        gap: 15px;
+        left: 20px;
+        right: 80px;
+        transform: none;
+      }
+
+      .desktop-nav {
+        display: flex !important;
+        gap: 15px;
+      }
+
+      .nav-item {
+        font-size: 0.9rem;
+      }
+
+      .mobile-menu-btn {
+        display: flex;
+      }
+
+      .mobile-nav {
+        display: flex;
+      }
+
+      .home-container {
+        margin-top: 70px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .home-container {
+        margin-top: 65px;
+        padding: 0 1rem;
+      }
+
+      .photo {
+        width: min(350px, 70vw);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .top-bar {
+        left: 10px;
+        right: 60px;
+        padding: 6px 12px;
+      }
+
+      .nav-item {
+        font-size: 0.7rem;
+      }
+
+      .mobile-menu-btn {
+        right: 60px;
+      }
+
+      .home-container {
+        margin-top: 60px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- TOP SHINE EFFECT -->
+  <div class="top-shine"></div>
+
+  <!-- GLASS UI TOP BAR - WITH PROPER LINKS -->
+  <div class="top-bar">
+    <div class="desktop-nav" style="display: flex; gap: 32px;">
+      <a href="index.html" class="nav-item active">Home</a>
+      <a href="about.html" class="nav-item">About Us</a>
+      <a href="projects.html" class="nav-item">Projects</a>
+      <a href="gallery.html" class="nav-item">Gallery</a>
+      <a href="feedbacks.html" class="nav-item">Feedbacks</a>
+    </div>
+  </div>
+
+  <!-- Mobile Menu Button -->
+  <div class="mobile-menu-btn" id="mobileMenuBtn">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <!-- Mobile Navigation -->
+  <div class="mobile-nav" id="mobileNav">
+    <a href="index.html" class="mobile-nav-item active">Home</a>
+    <a href="about.html" class="mobile-nav-item">About Us</a>
+    <a href="projects.html" class="mobile-nav-item">Projects</a>
+    <a href="gallery.html" class="mobile-nav-item">Gallery</a>
+    <a href="feedbacks.html" class="mobile-nav-item">Feedbacks</a>
+  </div>
+
+  <!-- Theme Switcher -->
+  <div class="theme-switcher">
+    <button class="theme-btn active" id="darkModeBtn" title="Dark mode">
+      <svg viewBox="0 0 24 24"><path d="M12 3c.132 0 .263 0 .393.008a8.5 8.5 0 0 0 0 16.985c.13.008.261.008.393.007a8.5 8.5 0 0 1-7.5-13.5A8.5 8.5 0 0 1 12 3z"/></svg>
+    </button>
+    <button class="theme-btn" id="lightModeBtn" title="Light mode">
+      <svg viewBox="0 0 24 24"><path d="M12 18a6 6 0 1 1 0-12 6 6 0 0 1 0 12zm0-2a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM11 3V1h2v2h-2zm0 20v-2h2v2h-2zM5.636 6.05L4.222 4.636l1.414-1.414 1.414 1.414L5.636 6.05zm12.728 12.728l-1.414 1.414-1.414-1.414 1.414-1.414 1.414 1.414zM4.636 17.364l1.414 1.414-1.414 1.414-1.414-1.414 1.414-1.414zM19.364 6.05l-1.414-1.414 1.414-1.414 1.414 1.414-1.414 1.414zM21 11h2v2h-2v-2zM1 11h2v2H1v-2z"/></svg>
+    </button>
+  </div>
+
+  <!-- AI Assistant Button -->
+  <div class="ai-assistant-btn" id="aiAssistantBtn">
+    <svg viewBox="0 0 24 24">
+      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm4-8c0 2.21-1.79 4-4 4s-4-1.79-4-4 1.79-4 4-4 4 1.79 4 4z"/>
+    </svg>
+  </div>
+
+  <!-- AI Chat Popup -->
+  <div class="ai-chat-popup" id="aiChatPopup">
+    <div class="chat-header">
+      <div class="chat-avatar">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm4-8c0 2.21-1.79 4-4 4s-4-1.79-4-4 1.79-4 4-4 4 1.79 4 4z"/>
+        </svg>
+      </div>
+      <div class="chat-title">
+        <h3>SoloDev AI</h3>
+        <p>Powered by SoloDev Solutions</p>
+      </div>
+      <div class="close-chat" id="closeChat">&times;</div>
+    </div>
+    
+    <div class="chat-messages" id="chatMessages">
+      <div class="message bot-message">
+        👋 Hi! I'm SoloDev AI. How can I help you with websites, LMS, or AI automation today?
+      </div>
+    </div>
+    
+    <div class="chat-input-area">
+      <input type="text" id="userInput" placeholder="Type your message...">
+      <button id="sendButton">
+        <svg viewBox="0 0 24 24">
+          <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- MAIN HOME CONTENT -->
+  <div class="home-container">
+    <!-- Hero Section -->
+    <div class="hero">
+      <div class="hero-center">
+        <div class="photo" role="img" aria-label="SoloDev founder"></div>
+        <div class="backward-name" aria-hidden="true">
+          <span>SoloDev</span>
+        </div>
+      </div>
+      <div class="photo-tagline">
+        <p>Building Future Ready Digital Solutions</p>
+      </div>
+      <div class="hero-footer">
+        <p>solo·dev solutions</p>
+      </div>
+    </div>
+
+    <!-- Description Section -->
+    <div class="company-description-centered">
+      <div class="description-centered">
+        Led by Founder and CEO Ravindu Dissanayaka (SoloDev), we are a fast-growing Software Development Company from Sri Lanka 🇱🇰. We specialize in pushing the boundaries of technology with AI-based solutions ✨, high-performance Mobile Apps for Android and iOS, custom LMS Solutions, Websites, and Multiplatform software.
+      </div>
+      
+      <button class="collaborate-button" id="openFormBtn">
+        Let's collaborate
+      </button>
+    </div>
+  </div>
+
+  <!-- Form Popup -->
+  <div class="form-popup" id="formPopup">
+    <div class="form-container" id="formContainer">
+      <span class="close-form" id="closeForm">&times;</span>
+      
+      <div id="formContent">
+        <h2>Let's Work Together</h2>
+        
+        <form id="collaborationForm">
+          <div class="form-group">
+            <label>Full Name <span class="required">*</span></label>
+            <input type="text" id="fullName" required placeholder="Enter your full name">
+          </div>
+          
+          <div class="form-group">
+            <label>Phone Number <span class="required">*</span></label>
+            <input type="tel" id="phone" required placeholder="07X XXX XXXX">
+            <div class="note">We will contact you within 24 hours.</div>
+          </div>
+          
+          <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" id="email" placeholder="your@email.com">
+          </div>
+          
+          <div class="form-group">
+            <label>About Business / Project (Optional)</label>
+            <textarea id="aboutBusiness" rows="2" placeholder="Tell us a bit about your business..."></textarea>
+          </div>
+          
+          <div class="form-group">
+            <label>What Service Are You Looking For?</label>
+            <div class="checkbox-group">
+              <label><input type="checkbox" name="service" value="Business Website"> Business Website</label>
+              <label><input type="checkbox" name="service" value="E-commerce Website"> E-commerce Website</label>
+              <label><input type="checkbox" name="service" value="LMS Website"> LMS Website</label>
+              <label><input type="checkbox" name="service" value="Mobile App"> Mobile App</label>
+              <label><input type="checkbox" name="service" value="Website Redesign"> Website Redesign</label>
+              <label><input type="checkbox" name="service" value="AI / Automation"> AI / Automation</label>
+              <label><input type="checkbox" name="service" value="Not Sure (Need Consultation)"> Not Sure (Need Consultation)</label>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label>What Is Your Budget Range? <span class="required">*</span></label>
+            <div class="radio-group">
+              <label><input type="radio" name="budget" value="50,000 – 100,000 LKR" required> 50,000 – 100,000 LKR</label>
+              <label><input type="radio" name="budget" value="100,000 – 200,000 LKR"> 100,000 – 200,000 LKR</label>
+              <label><input type="radio" name="budget" value="200,000 – 500,000 LKR"> 200,000 – 500,000 LKR</label>
+              <label><input type="radio" name="budget" value="500,000+ LKR"> 500,000+ LKR</label>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label>When Do You Need This Project?</label>
+            <select id="timeline">
+              <option value="">Select timeline</option>
+              <option value="Within 2 weeks">Within 2 weeks</option>
+              <option value="Within 1 month">Within 1 month</option>
+              <option value="1–3 months">1–3 months</option>
+              <option value="Just exploring">Just exploring</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label>Brief Description of Your Project (Optional)</label>
+            <textarea id="description" rows="3" placeholder="Tell us more about your project..."></textarea>
+          </div>
+          
+          <div class="captcha-box">
+            <span class="captcha-question" id="captchaQuestion">5 + 3 = ?</span>
+            <input type="text" id="captcha" placeholder="Enter answer" required>
+          </div>
+          
+          <div class="form-actions">
+            <button type="submit" class="submit-btn">Submit</button>
+            <button type="reset" class="reset-btn" id="resetForm">Reset</button>
+          </div>
+        </form>
+      </div>
+      
+      <div id="successMessage" style="display: none;" class="success-message">
+        <h3>✓ Thank You!</h3>
+        <p>We've received your request and will contact you within 24 hours.</p>
+        <p>A confirmation has been sent to your email.</p>
+        <button class="submit-btn" id="closeSuccess">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Theme Switcher
+    const body = document.body;
+    const darkBtn = document.getElementById('darkModeBtn');
+    const lightBtn = document.getElementById('lightModeBtn');
+
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'light') {
+      body.classList.add('light-mode');
+      darkBtn.classList.remove('active');
+      lightBtn.classList.add('active');
+    }
+
+    darkBtn.addEventListener('click', () => {
+      body.classList.remove('light-mode');
+      darkBtn.classList.add('active');
+      lightBtn.classList.remove('active');
+      localStorage.setItem('theme', 'dark');
+    });
+
+    lightBtn.addEventListener('click', () => {
+      body.classList.add('light-mode');
+      lightBtn.classList.add('active');
+      darkBtn.classList.remove('active');
+      localStorage.setItem('theme', 'light');
+    });
+
+    // Mobile Menu Toggle
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileNav = document.getElementById('mobileNav');
+
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenuBtn.classList.toggle('active');
+      mobileNav.classList.toggle('show');
+    });
+
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!mobileMenuBtn.contains(e.target) && !mobileNav.contains(e.target)) {
+        mobileMenuBtn.classList.remove('active');
+        mobileNav.classList.remove('show');
+      }
+    });
+
+    // AI Assistant
+    const HF_TOKEN = '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';
+    
+    const aiBtn = document.getElementById('aiAssistantBtn');
+    const aiChat = document.getElementById('aiChatPopup');
+    const closeChat = document.getElementById('closeChat');
+    const chatMessages = document.getElementById('chatMessages');
+    const userInput = document.getElementById('userInput');
+    const sendButton = document.getElementById('sendButton');
+
+    aiBtn.addEventListener('click', () => {
+      aiChat.classList.toggle('show');
+    });
+
+    closeChat.addEventListener('click', () => {
+      aiChat.classList.remove('show');
+    });
+
+    // Company context for AI
+    const companyContext = `You are SoloDev AI, representing SoloDev Solutions. Here's the information:
+
+FOUNDER:
+- Ravindu Dissanayaka (SoloDev) - Founder & CEO
+- Computer Science undergraduate at NIBM University
+- 2+ years experience
+- 50+ projects completed
+- 50+ happy clients
+
+SERVICES:
+- Websites (from LKR 20,000+)
+- LMS for teachers (LKR 45,000-50,000+ with free trial)
+- AI & Automation (chatbots, WhatsApp automation)
+- E-commerce (LKR 150,000+)
+
+Keep answers short and friendly.`;
+
+    function addUserMessage(text) {
+      const messageDiv = document.createElement('div');
+      messageDiv.className = 'message user-message';
+      messageDiv.textContent = text;
+      chatMessages.appendChild(messageDiv);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function addBotMessage(text) {
+      const messageDiv = document.createElement('div');
+      messageDiv.className = 'message bot-message';
+      messageDiv.textContent = text;
+      chatMessages.appendChild(messageDiv);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function showTypingIndicator() {
+      const indicator = document.createElement('div');
+      indicator.className = 'typing-indicator';
+      indicator.id = 'typingIndicator';
+      indicator.innerHTML = '<span></span><span></span><span></span>';
+      chatMessages.appendChild(indicator);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function removeTypingIndicator() {
+      const indicator = document.getElementById('typingIndicator');
+      if (indicator) indicator.remove();
+    }
+
+    async function sendMessage() {
+      const message = userInput.value.trim();
+      if (!message) return;
+
+      addUserMessage(message);
+      userInput.value = '';
+      showTypingIndicator();
+
+      try {
+        const response = await fetch('https://router.huggingface.co/v1/chat/completions', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${HF_TOKEN}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            model: 'moonshotai/Kimi-K2.5:novita',
+            messages: [
+              { role: 'system', content: companyContext },
+              { role: 'user', content: message }
+            ],
+            temperature: 0.7,
+            max_tokens: 150
+          })
+        });
+
+        if (!response.ok) {
+          throw new Error(`API error: ${response.status}`);
+        }
+
+        const data = await response.json();
+        removeTypingIndicator();
+        
+        if (data.choices && data.choices[0] && data.choices[0].message) {
+          addBotMessage(data.choices[0].message.content);
+        } else {
+          addBotMessage('Sorry, I received an unexpected response.');
+        }
+
+      } catch (error) {
+        console.error('Error:', error);
+        removeTypingIndicator();
+        addBotMessage('⚠️ Error connecting to AI. Please try again.');
+      }
+    }
+
+    sendButton.addEventListener('click', sendMessage);
+    userInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') sendMessage();
+    });
+
+    // Form Popup
+    const formPopup = document.getElementById('formPopup');
+    const openFormBtn = document.getElementById('openFormBtn');
+    const closeForm = document.getElementById('closeForm');
+    const formContent = document.getElementById('formContent');
+    const successMessage = document.getElementById('successMessage');
+    const closeSuccess = document.getElementById('closeSuccess');
+    const resetBtn = document.getElementById('resetForm');
+    const form = document.getElementById('collaborationForm');
+
+    openFormBtn.addEventListener('click', () => {
+      formPopup.classList.add('show');
+      document.body.style.overflow = 'hidden';
+    });
+
+    function closeFormPopup() {
+      formPopup.classList.remove('show');
+      document.body.style.overflow = 'auto';
+      formContent.style.display = 'block';
+      successMessage.style.display = 'none';
+    }
+
+    closeForm.addEventListener('click', closeFormPopup);
+    closeSuccess.addEventListener('click', closeFormPopup);
+
+    formPopup.addEventListener('click', (e) => {
+      if (e.target === formPopup) {
+        closeFormPopup();
+      }
+    });
+
+    // CAPTCHA
+    function generateCaptcha() {
+      const num1 = Math.floor(Math.random() * 10);
+      const num2 = Math.floor(Math.random() * 10);
+      document.getElementById('captchaQuestion').textContent = `${num1} + ${num2} = ?`;
+      return num1 + num2;
+    }
+
+    let captchaAnswer = generateCaptcha();
+
+    resetBtn.addEventListener('click', () => {
+      captchaAnswer = generateCaptcha();
+    });
+
+    // Form submission
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const userCaptcha = parseInt(document.getElementById('captcha').value);
+      if (userCaptcha !== captchaAnswer) {
+        alert('Incorrect CAPTCHA answer. Please try again.');
+        generateCaptcha();
+        return;
+      }
+
+      const fullName = document.getElementById('fullName').value;
+      const phone = document.getElementById('phone').value;
+      const email = document.getElementById('email').value;
+      const aboutBusiness = document.getElementById('aboutBusiness').value;
+      
+      const services = [];
+      document.querySelectorAll('input[name="service"]:checked').forEach(cb => {
+        services.push(cb.value);
+      });
+      
+      const budget = document.querySelector('input[name="budget"]:checked')?.value || 'Not selected';
+      const timeline = document.getElementById('timeline').value;
+      const description = document.getElementById('description').value;
+
+      const message = `*New Project Inquiry*%0A%0A` +
+        `*Full Name:* ${fullName}%0A` +
+        `*Phone:* ${phone}%0A` +
+        `*Email:* ${email || 'Not provided'}%0A` +
+        `*Business/Project:* ${aboutBusiness || 'Not provided'}%0A%0A` +
+        `*Services:* ${services.join(', ') || 'None'}%0A` +
+        `*Budget:* ${budget}%0A` +
+        `*Timeline:* ${timeline || 'Not specified'}%0A%0A` +
+        `*Description:* ${description || 'Not provided'}`;
+
+      window.open(`https://wa.me/94766079220?text=${message}`, '_blank');
+
+      if (email) {
+        const autoReply = `mailto:${email}?subject=We%20received%20your%20inquiry&body=Thank%20you%20for%20contacting%20SoloDev%20Solutions!%0A%0AWe%20have%20received%20your%20project%20details%20and%20will%20contact%20you%20within%2024%20hours.%0A%0ABest%20regards,%0ASoloDev%20Solutions%20Team`;
+        window.open(autoReply, '_blank');
+      }
+
+      formContent.style.display = 'none';
+      successMessage.style.display = 'block';
+      
+      form.reset();
+      captchaAnswer = generateCaptcha();
+    });
+  </script>
+</body>
+</html>
