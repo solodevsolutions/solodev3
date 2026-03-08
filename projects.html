@@ -52,6 +52,8 @@
       --topbar-bg: rgba(10, 20, 40, 0.2);
       --stat-bg: rgba(59, 130, 246, 0.1);
       --project-card-bg: rgba(20, 30, 50, 0.4);
+      --gold-color: #FFD700;
+      --gold-glow: rgba(255, 215, 0, 0.3);
     }
 
     body.light-mode {
@@ -78,6 +80,8 @@
       --topbar-bg: rgba(255, 255, 255, 0.1);
       --stat-bg: rgba(37, 99, 235, 0.1);
       --project-card-bg: rgba(255, 255, 255, 0.2);
+      --gold-color: #B8860B;
+      --gold-glow: rgba(184, 134, 11, 0.2);
     }
 
     @font-face {
@@ -119,15 +123,15 @@
       100% { opacity: 0.7; transform: scaleY(1.2); }
     }
 
-    /* Top Bar */
+    /* Top Bar - CLEAN, NO MOBILE MENU */
     .top-bar {
       position: fixed;
       top: 20px;
       left: 50%;
       transform: translateX(-50%);
       width: auto;
-      min-width: 500px;
-      max-width: 90%;
+      min-width: 450px;
+      max-width: 95%;
       background: var(--topbar-bg);
       backdrop-filter: blur(16px) saturate(180%);
       -webkit-backdrop-filter: blur(16px) saturate(180%);
@@ -154,6 +158,7 @@
       white-space: nowrap;
       opacity: 1 !important;
       text-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
+      text-decoration: none;
     }
 
     .nav-item:hover {
@@ -186,89 +191,11 @@
       transform: translateX(-50%) scaleX(1);
     }
 
-    /* Mobile Menu */
-    .mobile-menu-btn {
-      display: none;
-      flex-direction: column;
-      gap: 6px;
-      cursor: pointer;
-      padding: 10px;
-      z-index: 1002;
-      position: fixed;
-      top: 28px;
-      right: 80px;
-    }
-
-    .mobile-menu-btn span {
-      width: 25px;
-      height: 2px;
-      background: var(--text-secondary);
-      border-radius: 4px;
-      transition: all 0.3s ease;
-    }
-
-    .mobile-menu-btn.active span:nth-child(1) {
-      transform: rotate(45deg) translate(7px, 7px);
-    }
-
-    .mobile-menu-btn.active span:nth-child(2) {
-      opacity: 0;
-    }
-
-    .mobile-menu-btn.active span:nth-child(3) {
-      transform: rotate(-45deg) translate(7px, -7px);
-    }
-
-    .mobile-nav {
-      position: fixed;
-      top: 80px;
-      right: 20px;
-      background: var(--topbar-bg);
-      backdrop-filter: blur(20px) saturate(200%);
-      -webkit-backdrop-filter: blur(20px) saturate(200%);
-      border-radius: 24px;
-      border: 1px solid var(--glass-border);
-      box-shadow: var(--glass-shadow);
-      padding: 20px;
-      display: none;
-      flex-direction: column;
-      gap: 16px;
-      min-width: 180px;
-      z-index: 1000;
-      transform: translateX(120%);
-      transition: transform 0.3s ease;
-    }
-
-    .mobile-nav.show {
-      transform: translateX(0);
-    }
-
-    .mobile-nav-item {
-      color: var(--text-secondary);
-      font-size: 1.1rem;
-      font-weight: 500;
-      padding: 10px 20px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      border-radius: 30px;
-      text-align: center;
-    }
-
-    .mobile-nav-item:hover {
-      background: var(--border-color);
-      color: var(--text-accent);
-    }
-
-    .mobile-nav-item.active {
-      color: var(--text-accent);
-      background: var(--border-color);
-    }
-
-    /* Theme Switcher */
+    /* Theme Switcher - BOTTOM LEFT */
     .theme-switcher {
       position: fixed;
-      top: 20px;
-      right: 20px;
+      bottom: 30px;
+      left: 30px;
       z-index: 1002;
       background: var(--topbar-bg);
       backdrop-filter: blur(16px) saturate(180%);
@@ -551,14 +478,14 @@
     .projects-container {
       width: 100%;
       max-width: 1300px;
-      margin: 120px auto 60px auto;
+      margin: 100px auto 60px auto;
       padding: 0 2rem;
     }
 
     /* Hero Section */
     .projects-hero {
       text-align: center;
-      margin-bottom: 60px;
+      margin-bottom: 40px;
       animation: fadeInUp 1s ease-out;
     }
 
@@ -577,6 +504,43 @@
       max-width: 700px;
       margin: 0 auto;
       line-height: 1.6;
+    }
+
+    /* Category Filter */
+    .category-filter {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-bottom: 40px;
+      animation: fadeInUp 1s ease-out;
+      animation-delay: 0.1s;
+    }
+
+    .filter-btn {
+      background: var(--project-card-bg);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--glass-border);
+      color: var(--text-secondary);
+      padding: 10px 25px;
+      border-radius: 40px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'AvantGarde Bk BT', sans-serif;
+    }
+
+    .filter-btn:hover {
+      background: var(--text-accent);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px var(--text-accent);
+    }
+
+    .filter-btn.active {
+      background: var(--text-accent);
+      color: white;
+      border-color: var(--text-accent);
     }
 
     /* Projects Grid */
@@ -604,6 +568,66 @@
       flex-direction: column;
     }
 
+    /* Gold Card - Special Styling */
+    .project-card.gold-card {
+      background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(184, 134, 11, 0.15));
+      border: 2px solid var(--gold-color);
+      box-shadow: 0 0 30px var(--gold-glow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Shine Animation for Gold Card */
+    .project-card.gold-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.3), transparent);
+      animation: goldShine 3s infinite;
+      pointer-events: none;
+    }
+
+    @keyframes goldShine {
+      0% {
+        left: -100%;
+      }
+      20% {
+        left: 100%;
+      }
+      100% {
+        left: 100%;
+      }
+    }
+
+    .project-card.gold-card .project-tag {
+      background: rgba(255, 215, 0, 0.2);
+      color: var(--gold-color);
+      border-color: var(--gold-color);
+    }
+
+    .project-card.gold-card h3 {
+      color: var(--gold-color);
+    }
+
+    .project-card.gold-card .project-link {
+      background: linear-gradient(135deg, #B8860B, #FFD700);
+    }
+
+    .project-card.gold-card .project-link.secondary {
+      background: transparent;
+      border-color: var(--gold-color);
+      color: var(--gold-color);
+    }
+
+    .project-card.gold-card .project-link.secondary:hover {
+      background: var(--gold-color);
+      color: #000;
+    }
+
+    /* Default card shine (kept for other cards) */
     .project-card::before {
       content: '';
       position: absolute;
@@ -815,15 +839,7 @@
       .top-bar {
         min-width: auto;
         width: auto;
-        padding: 10px 20px;
-        gap: 15px;
-        left: 20px;
-        right: 80px;
-        transform: none;
-      }
-
-      .desktop-nav {
-        display: flex !important;
+        padding: 10px 16px;
         gap: 15px;
       }
 
@@ -831,12 +847,24 @@
         font-size: 0.9rem;
       }
 
-      .mobile-menu-btn {
-        display: flex;
+      .projects-container {
+        margin-top: 90px;
       }
-
-      .mobile-nav {
-        display: flex;
+      
+      .theme-switcher {
+        bottom: 20px;
+        left: 20px;
+        padding: 6px;
+      }
+      
+      .theme-btn {
+        width: 35px;
+        height: 35px;
+      }
+      
+      .theme-btn svg {
+        width: 20px;
+        height: 20px;
       }
 
       .project-stats {
@@ -846,9 +874,18 @@
     }
 
     @media (max-width: 768px) {
+      .top-bar {
+        padding: 8px 12px;
+        gap: 10px;
+      }
+      
+      .nav-item {
+        font-size: 0.8rem;
+      }
+      
       .projects-container {
+        margin-top: 85px;
         padding: 0 1rem;
-        margin-top: 100px;
       }
 
       .projects-grid {
@@ -877,21 +914,55 @@
       .projects-cta h2 {
         font-size: 2rem;
       }
+      
+      .ai-assistant-btn {
+        width: 60px;
+        height: 60px;
+        bottom: 20px;
+        right: 20px;
+      }
+      
+      .ai-assistant-btn svg {
+        width: 30px;
+        height: 30px;
+      }
+      
+      .ai-chat-popup {
+        width: 300px;
+        height: 500px;
+        right: 20px;
+        bottom: 100px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .top-bar {
+        padding: 8px 10px;
+        gap: 8px;
+      }
+      
+      .nav-item {
+        font-size: 0.7rem;
+      }
     }
 
     @media (max-width: 480px) {
       .top-bar {
-        left: 10px;
-        right: 60px;
-        padding: 6px 12px;
+        padding: 6px 8px;
+        gap: 6px;
       }
-
+      
       .nav-item {
-        font-size: 0.7rem;
+        font-size: 0.6rem;
       }
 
-      .mobile-menu-btn {
-        right: 60px;
+      .projects-container {
+        margin-top: 80px;
+      }
+      
+      .theme-switcher {
+        bottom: 15px;
+        left: 15px;
       }
 
       .project-links {
@@ -901,6 +972,15 @@
       .project-link {
         width: 100%;
       }
+
+      .category-filter {
+        gap: 10px;
+      }
+
+      .filter-btn {
+        padding: 8px 16px;
+        font-size: 0.9rem;
+      }
     }
   </style>
 </head>
@@ -908,34 +988,17 @@
   <!-- TOP SHINE EFFECT -->
   <div class="top-shine"></div>
 
-  <!-- GLASS UI TOP BAR -->
+  <!-- GLASS UI TOP BAR - UPDATED with Offers -->
   <div class="top-bar">
     <div class="desktop-nav" style="display: flex; gap: 32px;">
-      <div class="nav-item" onclick="location.href='index.html'">Home</div>
-      <div class="nav-item" onclick="location.href='about.html'">About Us</div>
-      <div class="nav-item active" onclick="location.href='projects.html'">Projects</div>
-      <div class="nav-item" onclick="location.href='gallery.html'">Gallery</div>
-      <div class="nav-item" onclick="location.href='feedbacks.html'">Feedbacks</div>
+      <a href="index.html" class="nav-item">Home</a>
+      <a href="about.html" class="nav-item">About Us</a>
+      <a href="projects.html" class="nav-item active">Projects</a>
+      <a href="offers.html" class="nav-item">Offers</a>
     </div>
   </div>
 
-  <!-- Mobile Menu Button -->
-  <div class="mobile-menu-btn" id="mobileMenuBtn">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-
-  <!-- Mobile Navigation -->
-  <div class="mobile-nav" id="mobileNav">
-    <div class="mobile-nav-item" onclick="location.href='index.html'">Home</div>
-    <div class="mobile-nav-item" onclick="location.href='about.html'">About Us</div>
-    <div class="mobile-nav-item active" onclick="location.href='projects.html'">Projects</div>
-    <div class="mobile-nav-item" onclick="location.href='gallery.html'">Gallery</div>
-    <div class="mobile-nav-item" onclick="location.href='feedbacks.html'">Feedbacks</div>
-  </div>
-
-  <!-- Theme Switcher -->
+  <!-- Theme Switcher - BOTTOM LEFT -->
   <div class="theme-switcher">
     <button class="theme-btn active" id="darkModeBtn" title="Dark mode">
       <svg viewBox="0 0 24 24"><path d="M12 3c.132 0 .263 0 .393.008a8.5 8.5 0 0 0 0 16.985c.13.008.261.008.393.007a8.5 8.5 0 0 1-7.5-13.5A8.5 8.5 0 0 1 12 3z"/></svg>
@@ -987,20 +1050,71 @@
   <div class="projects-container">
     <!-- Hero Section -->
     <div class="projects-hero">
-      <h1>Our Recent Projects</h1>
+      <h1>Our Projects</h1>
       <div class="subtitle">Transforming ideas into powerful digital experiences</div>
     </div>
 
+    <!-- Category Filter -->
+    <div class="category-filter" id="categoryFilter">
+      <button class="filter-btn active" data-filter="all">All Projects</button>
+      <button class="filter-btn" data-filter="lms">LMS Platforms</button>
+      <button class="filter-btn" data-filter="website">Websites</button>
+      <button class="filter-btn" data-filter="ecommerce">E-commerce</button>
+      <button class="filter-btn" data-filter="portfolio">Portfolio</button>
+    </div>
+
     <!-- Projects Grid -->
-    <div class="projects-grid">
-      <!-- Project 1: Winns International -->
-      <div class="project-card" style="animation-delay: 0.1s;">
+    <div class="projects-grid" id="projectsGrid">
+      <!-- Rasnayaka Ayurveda - GOLD CARD with shine animation -->
+      <div class="project-card gold-card" data-category="website ecommerce portfolio" style="animation-delay: 0.1s;">
+        <div class="project-logo">
+          <img src="https://lms.rasnayakaayurveda.com/wp-content/uploads/2025/07/cropped-LOGO-2.png" alt="Rasnayaka Ayurveda Logo">
+        </div>
+        <h3>Rasnayaka Ayurveda</h3>
+        <div class="project-description">
+          <strong>✨ Premium 3-in-1 Project</strong><br>
+          A comprehensive digital solution for an Ayurveda hospital in Sri Lanka. Features online appointment booking, e-commerce for Ayurvedic products, and a professional portfolio.
+        </div>
+        <div class="project-tags">
+          <span class="project-tag">Healthcare</span>
+          <span class="project-tag">E-commerce</span>
+          <span class="project-tag">Booking System</span>
+          <span class="project-tag">Portfolio</span>
+        </div>
+        <div class="project-links">
+          <a href="https://rasnayakaayurveda.com" target="_blank" class="project-link">Visit Site</a>
+          <a href="#" class="project-link secondary" onclick="alert('Case study coming soon!')">Case Study</a>
+        </div>
+      </div>
+
+      <!-- Rasnayaka LMS -->
+      <div class="project-card" data-category="lms" style="animation-delay: 0.15s;">
+        <div class="project-logo">
+          <img src="https://lms.rasnayakaayurveda.com/wp-content/uploads/2026/03/Untitled-1.png" alt="Rasnayaka LMS Logo">
+        </div>
+        <h3>Rasnayaka LMS</h3>
+        <div class="project-description">
+          A specialized Learning Management System designed for Ayurveda doctors and educators. Enables online teaching, course management, student tracking, and certification.
+        </div>
+        <div class="project-tags">
+          <span class="project-tag">LMS</span>
+          <span class="project-tag">Education</span>
+          <span class="project-tag">Ayurveda</span>
+        </div>
+        <div class="project-links">
+          <a href="https://lms.rasnayakaayurveda.com" target="_blank" class="project-link">Visit Site</a>
+          <a href="#" class="project-link secondary" onclick="alert('Demo available!')">Live Demo</a>
+        </div>
+      </div>
+
+      <!-- Winns International -->
+      <div class="project-card" data-category="website lms" style="animation-delay: 0.2s;">
         <div class="project-logo">
           <img src="https://winnsinternational.com/wp-content/uploads/2025/05/WINNS-INTER-LOGO.png" alt="Winns International Logo">
         </div>
         <h3>Winns International</h3>
         <div class="project-description">
-          A migration consultancy website integrated with an LMS (Learning Management System) for student and client training. Features course management, student tracking, and automated workflows.
+          A migration consultancy website integrated with an LMS for student and client training. Features course management, student tracking, and automated workflows.
         </div>
         <div class="project-tags">
           <span class="project-tag">Migration</span>
@@ -1013,14 +1127,14 @@
         </div>
       </div>
 
-      <!-- Project 2: IELTS Winns -->
-      <div class="project-card" style="animation-delay: 0.2s;">
+      <!-- IELTS Winns -->
+      <div class="project-card" data-category="lms" style="animation-delay: 0.25s;">
         <div class="project-logo">
           <img src="https://ielts.winnsinternational.com/wp-content/uploads/2025/07/cropped-WINNS-LOGO-01-scaled-1.jpg" alt="IELTS Winns Logo">
         </div>
         <h3>IELTS Winns</h3>
         <div class="project-description">
-          An online IELTS exam practice platform where students can take mock tests, track their progress, and improve their scores with detailed analytics and performance reports.
+          An online IELTS exam practice platform where students can take mock tests, track progress, and improve scores with detailed analytics.
         </div>
         <div class="project-tags">
           <span class="project-tag">IELTS</span>
@@ -1033,14 +1147,14 @@
         </div>
       </div>
 
-      <!-- Project 3: Navvara Migration -->
-      <div class="project-card" style="animation-delay: 0.3s;">
+      <!-- Navvara Migration -->
+      <div class="project-card" data-category="website portfolio" style="animation-delay: 0.3s;">
         <div class="project-logo">
           <img src="https://navvaramigrationsolutions.com/wp-content/uploads/2025/07/cropped-NEW.png" alt="Navvara Migration Logo">
         </div>
         <h3>Navvara Migration</h3>
         <div class="project-description">
-          A professional portfolio website for a migration consultancy showcasing their services, expertise, and success stories with a clean, trust-building design.
+          A professional portfolio website for a migration consultancy showcasing services, expertise, and success stories with a clean, trust-building design.
         </div>
         <div class="project-tags">
           <span class="project-tag">Migration</span>
@@ -1053,8 +1167,8 @@
         </div>
       </div>
 
-      <!-- Project 4: SoloDev LMS -->
-      <div class="project-card" style="animation-delay: 0.4s;">
+      <!-- SoloDev LMS -->
+      <div class="project-card" data-category="lms" style="animation-delay: 0.35s;">
         <div class="project-logo">
           <img src="https://demo.solodevlms.com/wp-content/uploads/2025/06/cropped-solodevlms1.png" alt="SoloDev LMS Logo">
         </div>
@@ -1073,8 +1187,8 @@
         </div>
       </div>
 
-      <!-- Project 5: GadgetCity.lk -->
-      <div class="project-card" style="animation-delay: 0.5s;">
+      <!-- GadgetCity.lk -->
+      <div class="project-card" data-category="ecommerce" style="animation-delay: 0.4s;">
         <div class="project-logo">
           <img src="https://solo.gadgetcity.lk/wp/wp-content/uploads/2021/12/Logo.png" alt="GadgetCity.lk Logo">
         </div>
@@ -1109,7 +1223,7 @@
         <span class="stat-label">Support</span>
       </div>
       <div class="stat-item">
-        <span class="stat-number">5+</span>
+        <span class="stat-number">7+</span>
         <span class="stat-label">Active Platforms</span>
       </div>
     </div>
@@ -1149,21 +1263,31 @@
       localStorage.setItem('theme', 'light');
     });
 
-    // Mobile Menu Toggle
-    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-    const mobileNav = document.getElementById('mobileNav');
+    // Category Filter
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const projectCards = document.querySelectorAll('.project-card');
 
-    mobileMenuBtn.addEventListener('click', () => {
-      mobileMenuBtn.classList.toggle('active');
-      mobileNav.classList.toggle('show');
-    });
+    filterButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        // Update active button
+        filterButtons.forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
 
-    // Close mobile menu when clicking outside
-    document.addEventListener('click', (e) => {
-      if (!mobileMenuBtn.contains(e.target) && !mobileNav.contains(e.target)) {
-        mobileMenuBtn.classList.remove('active');
-        mobileNav.classList.remove('show');
-      }
+        const filter = button.dataset.filter;
+
+        projectCards.forEach(card => {
+          if (filter === 'all') {
+            card.style.display = 'flex';
+          } else {
+            const categories = card.dataset.category;
+            if (categories && categories.includes(filter)) {
+              card.style.display = 'flex';
+            } else {
+              card.style.display = 'none';
+            }
+          }
+        });
+      });
     });
 
     // AI Assistant
@@ -1188,11 +1312,13 @@
     const companyContext = `You are SoloDev AI, representing SoloDev Solutions. Here's information about our projects:
 
 PROJECTS:
-1. Winns International - Migration consultancy with LMS integration
-2. IELTS Winns - Online IELTS exam practice platform
-3. Navvara Migration - Migration consultancy portfolio
-4. SoloDev LMS - SaaS-based LMS platform for educators
-5. GadgetCity.lk - Large e-commerce electronics store
+1. Rasnayaka Ayurveda - Premium 3-in-1 website with appointment booking, e-commerce, and portfolio
+2. Rasnayaka LMS - LMS platform for Ayurveda education
+3. Winns International - Migration consultancy with LMS integration
+4. IELTS Winns - Online IELTS exam practice platform
+5. Navvara Migration - Migration consultancy portfolio
+6. SoloDev LMS - SaaS-based LMS platform for educators
+7. GadgetCity.lk - Large e-commerce electronics store
 
 Keep answers short and friendly.`;
 
