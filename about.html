@@ -117,15 +117,15 @@
       100% { opacity: 0.7; transform: scaleY(1.2); }
     }
 
-    /* Top Bar - FIXED FOR MOBILE VISIBILITY */
+    /* Top Bar - CLEAN, NO MOBILE MENU (same as index) */
     .top-bar {
       position: fixed;
       top: 20px;
       left: 50%;
       transform: translateX(-50%);
       width: auto;
-      min-width: 500px;
-      max-width: 90%;
+      min-width: 450px;
+      max-width: 95%;
       background: var(--topbar-bg);
       backdrop-filter: blur(16px) saturate(180%);
       -webkit-backdrop-filter: blur(16px) saturate(180%);
@@ -141,7 +141,7 @@
     }
 
     .nav-item {
-      color: var(--text-secondary) !important; /* Force color visibility */
+      color: var(--text-secondary) !important;
       font-size: 1rem;
       font-weight: 500;
       letter-spacing: 0.5px;
@@ -150,8 +150,9 @@
       position: relative;
       padding: 6px 0;
       white-space: nowrap;
-      opacity: 1 !important; /* Force full opacity */
-      text-shadow: 0 0 10px rgba(59, 130, 246, 0.3); /* Add glow for visibility */
+      opacity: 1 !important;
+      text-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
+      text-decoration: none;
     }
 
     .nav-item:hover {
@@ -184,89 +185,11 @@
       transform: translateX(-50%) scaleX(1);
     }
 
-    /* Mobile Menu - FIXED VISIBILITY */
-    .mobile-menu-btn {
-      display: none;
-      flex-direction: column;
-      gap: 6px;
-      cursor: pointer;
-      padding: 10px;
-      z-index: 1002;
-      position: fixed;
-      top: 28px;
-      right: 80px;
-    }
-
-    .mobile-menu-btn span {
-      width: 25px;
-      height: 2px;
-      background: var(--text-secondary);
-      border-radius: 4px;
-      transition: all 0.3s ease;
-    }
-
-    .mobile-menu-btn.active span:nth-child(1) {
-      transform: rotate(45deg) translate(7px, 7px);
-    }
-
-    .mobile-menu-btn.active span:nth-child(2) {
-      opacity: 0;
-    }
-
-    .mobile-menu-btn.active span:nth-child(3) {
-      transform: rotate(-45deg) translate(7px, -7px);
-    }
-
-    .mobile-nav {
-      position: fixed;
-      top: 80px;
-      right: 20px;
-      background: var(--topbar-bg);
-      backdrop-filter: blur(20px) saturate(200%);
-      -webkit-backdrop-filter: blur(20px) saturate(200%);
-      border-radius: 24px;
-      border: 1px solid var(--glass-border);
-      box-shadow: var(--glass-shadow);
-      padding: 20px;
-      display: none;
-      flex-direction: column;
-      gap: 16px;
-      min-width: 180px;
-      z-index: 1000;
-      transform: translateX(120%);
-      transition: transform 0.3s ease;
-    }
-
-    .mobile-nav.show {
-      transform: translateX(0);
-    }
-
-    .mobile-nav-item {
-      color: var(--text-secondary);
-      font-size: 1.1rem;
-      font-weight: 500;
-      padding: 10px 20px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      border-radius: 30px;
-      text-align: center;
-    }
-
-    .mobile-nav-item:hover {
-      background: var(--border-color);
-      color: var(--text-accent);
-    }
-
-    .mobile-nav-item.active {
-      color: var(--text-accent);
-      background: var(--border-color);
-    }
-
-    /* Theme Switcher */
+    /* Theme Switcher - BOTTOM LEFT */
     .theme-switcher {
       position: fixed;
-      top: 20px;
-      right: 20px;
+      bottom: 30px;
+      left: 30px;
       z-index: 1002;
       background: var(--topbar-bg);
       backdrop-filter: blur(16px) saturate(180%);
@@ -549,7 +472,7 @@
     .about-container {
       width: 100%;
       max-width: 1200px;
-      margin: 120px auto 60px auto;
+      margin: 100px auto 60px auto;
       padding: 0 2rem;
     }
 
@@ -724,7 +647,7 @@
       color: var(--text-primary);
     }
 
-    /* Team Section */
+    /* Team Section - UPDATED with real photos */
     .team-section {
       margin-bottom: 80px;
     }
@@ -769,18 +692,15 @@
       height: 150px;
       margin: 0 auto 20px;
       border-radius: 50%;
-      background: linear-gradient(135deg, var(--text-accent), #1e3a8a);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      overflow: hidden;
       border: 3px solid var(--glass-border);
       box-shadow: 0 10px 30px var(--text-accent);
     }
 
-    .member-avatar svg {
-      width: 80px;
-      height: 80px;
-      fill: white;
+    .member-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
     .team-member h3 {
@@ -916,7 +836,7 @@
       }
     }
 
-    /* ===== RESPONSIVE DESIGN - FIXED ===== */
+    /* ===== RESPONSIVE DESIGN ===== */
     @media (max-width: 1024px) {
       .team-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -927,33 +847,16 @@
       .top-bar {
         min-width: auto;
         width: auto;
-        padding: 10px 20px;
-        gap: 15px;
-        left: 20px;
-        right: 80px;
-        transform: none;
-        background: var(--topbar-bg);
-        backdrop-filter: blur(16px) saturate(180%);
-        border: 1px solid var(--glass-border);
-      }
-
-      .desktop-nav {
-        display: flex !important;
+        padding: 10px 16px;
         gap: 15px;
       }
 
       .nav-item {
         font-size: 0.9rem;
-        color: var(--text-secondary) !important;
-        opacity: 1 !important;
       }
 
-      .mobile-menu-btn {
-        display: flex;
-      }
-
-      .mobile-nav {
-        display: flex;
+      .about-container {
+        margin-top: 90px;
       }
 
       .founder-section {
@@ -973,23 +876,37 @@
       .mission-vision {
         grid-template-columns: 1fr;
       }
+      
+      .theme-switcher {
+        bottom: 20px;
+        left: 20px;
+        padding: 6px;
+      }
+      
+      .theme-btn {
+        width: 35px;
+        height: 35px;
+      }
+      
+      .theme-btn svg {
+        width: 20px;
+        height: 20px;
+      }
     }
 
     @media (max-width: 768px) {
-      .about-container {
-        padding: 0 1rem;
-        margin-top: 100px;
-      }
-
       .top-bar {
-        padding: 8px 15px;
+        padding: 8px 12px;
         gap: 10px;
-        left: 15px;
-        right: 70px;
       }
-
+      
       .nav-item {
         font-size: 0.8rem;
+      }
+      
+      .about-container {
+        margin-top: 85px;
+        padding: 0 1rem;
       }
 
       .founder-stats {
@@ -1014,11 +931,6 @@
         height: 100px;
       }
 
-      .member-avatar svg {
-        width: 50px;
-        height: 50px;
-      }
-
       .team-member h3 {
         font-size: 1.1rem;
       }
@@ -1036,40 +948,53 @@
         gap: 15px;
       }
 
+      .ai-assistant-btn {
+        width: 60px;
+        height: 60px;
+        bottom: 20px;
+        right: 20px;
+      }
+      
+      .ai-assistant-btn svg {
+        width: 30px;
+        height: 30px;
+      }
+      
       .ai-chat-popup {
         width: 300px;
         right: 10px;
+        bottom: 100px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .top-bar {
+        padding: 8px 10px;
+        gap: 8px;
+      }
+      
+      .nav-item {
+        font-size: 0.7rem;
       }
     }
 
     @media (max-width: 480px) {
       .top-bar {
-        left: 10px;
-        right: 60px;
-        padding: 6px 12px;
-        gap: 8px;
+        padding: 6px 8px;
+        gap: 6px;
       }
-
+      
       .nav-item {
-        font-size: 0.7rem;
+        font-size: 0.6rem;
       }
 
-      .mobile-menu-btn {
-        right: 60px;
+      .about-container {
+        margin-top: 80px;
       }
-
+      
       .theme-switcher {
-        padding: 6px;
-      }
-
-      .theme-btn {
-        width: 35px;
-        height: 35px;
-      }
-
-      .theme-btn svg {
-        width: 20px;
-        height: 20px;
+        bottom: 15px;
+        left: 15px;
       }
 
       .founder-stats {
@@ -1123,34 +1048,17 @@
   <!-- TOP SHINE EFFECT -->
   <div class="top-shine"></div>
 
-  <!-- GLASS UI TOP BAR - WITH VISIBLE TEXT -->
+  <!-- GLASS UI TOP BAR - UPDATED with Offers -->
   <div class="top-bar">
     <div class="desktop-nav" style="display: flex; gap: 32px;">
-      <div class="nav-item" onclick="location.href='index.html'">Home</div>
-      <div class="nav-item active" onclick="location.href='about.html'">About Us</div>
-      <div class="nav-item" onclick="location.href='projects.html'">Projects</div>
-      <div class="nav-item" onclick="location.href='gallery.html'">Gallery</div>
-      <div class="nav-item" onclick="location.href='feedbacks.html'">Feedbacks</div>
+      <a href="index.html" class="nav-item">Home</a>
+      <a href="about.html" class="nav-item active">About Us</a>
+      <a href="projects.html" class="nav-item">Projects</a>
+      <a href="offers.html" class="nav-item">Offers</a>
     </div>
   </div>
 
-  <!-- Mobile Menu Button -->
-  <div class="mobile-menu-btn" id="mobileMenuBtn">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-
-  <!-- Mobile Navigation -->
-  <div class="mobile-nav" id="mobileNav">
-    <div class="mobile-nav-item" onclick="location.href='index.html'">Home</div>
-    <div class="mobile-nav-item active" onclick="location.href='about.html'">About Us</div>
-    <div class="mobile-nav-item" onclick="location.href='projects.html'">Projects</div>
-    <div class="mobile-nav-item" onclick="location.href='gallery.html'">Gallery</div>
-    <div class="mobile-nav-item" onclick="location.href='feedbacks.html'">Feedbacks</div>
-  </div>
-
-  <!-- Theme Switcher -->
+  <!-- Theme Switcher - BOTTOM LEFT -->
   <div class="theme-switcher">
     <button class="theme-btn active" id="darkModeBtn" title="Dark mode">
       <svg viewBox="0 0 24 24"><path d="M12 3c.132 0 .263 0 .393.008a8.5 8.5 0 0 0 0 16.985c.13.008.261.008.393.007a8.5 8.5 0 0 1-7.5-13.5A8.5 8.5 0 0 1 12 3z"/></svg>
@@ -1250,21 +1158,21 @@
       </div>
     </div>
 
-    <!-- Team Section -->
+    <!-- Team Section - UPDATED with real photos -->
     <div class="team-section">
       <h2>Meet Our Team</h2>
       <div class="team-grid">
+        <!-- CEO - Updated with real photo -->
         <div class="team-member">
           <div class="member-avatar">
-            <svg viewBox="0 0 24 24">
-              <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-            </svg>
+            <img src="https://lms.rasnayakaayurveda.com/wp-content/uploads/2026/03/Gemini_Generated_Image_vtj1n2vtj1n2vtj1.png" alt="Ravindu Dissanayaka">
           </div>
           <h3>Ravindu Dissanayaka</h3>
           <div class="role">Founder & CEO</div>
           <div class="bio">Computer Science undergraduate leading digital innovation in Sri Lanka.</div>
         </div>
 
+        <!-- Marketing Manager - unchanged -->
         <div class="team-member">
           <div class="member-avatar">
             <svg viewBox="0 0 24 24">
@@ -1276,17 +1184,17 @@
           <div class="bio">Strategic marketing expert helping businesses grow their digital presence.</div>
         </div>
 
+        <!-- Lead Developer - Updated with real photo and name -->
         <div class="team-member">
           <div class="member-avatar">
-            <svg viewBox="0 0 24 24">
-              <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-            </svg>
+            <img src="https://lms.rasnayakaayurveda.com/wp-content/uploads/2026/03/WhatsApp-Image-2026-03-08-at-4.00.43-PM.jpeg" alt="Malisha Bhanuka">
           </div>
-          <h3>Lead Developer</h3>
-          <div class="role">Technical Lead</div>
+          <h3>Malisha Bhanuka</h3>
+          <div class="role">Lead Developer</div>
           <div class="bio">Full-stack expert specializing in LMS and e-commerce solutions.</div>
         </div>
 
+        <!-- UI/UX Designer - unchanged -->
         <div class="team-member">
           <div class="member-avatar">
             <svg viewBox="0 0 24 24">
@@ -1378,23 +1286,6 @@
       localStorage.setItem('theme', 'light');
     });
 
-    // Mobile Menu Toggle
-    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-    const mobileNav = document.getElementById('mobileNav');
-
-    mobileMenuBtn.addEventListener('click', () => {
-      mobileMenuBtn.classList.toggle('active');
-      mobileNav.classList.toggle('show');
-    });
-
-    // Close mobile menu when clicking outside
-    document.addEventListener('click', (e) => {
-      if (!mobileMenuBtn.contains(e.target) && !mobileNav.contains(e.target)) {
-        mobileMenuBtn.classList.remove('active');
-        mobileNav.classList.remove('show');
-      }
-    });
-
     // AI Assistant
     const HF_TOKEN = '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';
     
@@ -1413,7 +1304,7 @@
       aiChat.classList.remove('show');
     });
 
-    // Company context for AI
+    // Company context for AI - UPDATED with team info
     const companyContext = `You are SoloDev AI, representing SoloDev Solutions. Here's the updated information:
 
 FOUNDER:
@@ -1426,7 +1317,7 @@ FOUNDER:
 TEAM:
 - Founder & CEO: Ravindu Dissanayaka
 - Marketing Manager: Strategic marketing expert
-- Lead Developer: Full-stack expert in LMS and e-commerce
+- Lead Developer: Malisha Bhanuka (Full-stack expert in LMS and e-commerce)
 - UI/UX Designer: Creates beautiful interfaces
 
 Keep answers short and friendly.`;
